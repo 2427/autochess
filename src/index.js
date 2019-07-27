@@ -7,6 +7,9 @@ var config = {
   width: 800,
   height: 600,
   scene: [LobbyScene],
+  dom: {
+    createContainer: true,
+  },
 };
 
 var game = new Phaser.Game(config);

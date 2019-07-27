@@ -1,20 +1,17 @@
 import 'phaser';
 import DraftScene from '../draft-scene/draft-scene.class';
 
-var myScene;
 export default class LobbyScene extends Phaser.Scene {
   constructor() {
     super({ key: 'LobbyScene', active: true });
-    myScene = this;
+  }
+
+  preload() {
+    this.load.html('nameform', 'assets/nameform.html');
   }
 
   create() {
-    let graphics = this.add.graphics();
-    graphics.fillStyle(0xff9933, 1);
-    graphics.fillRect(100, 200, 600, 300);
-
-    var welcomeMessage = this.add.text(100, 180, 'Welcome to 2427 Autochess');
-    const startButton = this.createStartButton();
+    this.createNameForm();
   }
 
   createStartButton() {
@@ -39,11 +36,38 @@ export default class LobbyScene extends Phaser.Scene {
       });
     });
     startButton.on('pointerdown', this.startGame.bind(this));
-    return startButton;
   }
 
   startGame() {
     this.game.scene.add('DraftScene', DraftScene);
     this.game.scene.remove('LobbyScene');
+  }
+
+  createNameForm() {
+    var text = this.add.text(300, 10, 'Please enter your name', {
+      color: 'white',
+      fontSize: '20px ',
+    });
+
+    var element = this.add.dom(20, 20).createFromCache('nameform');
+
+    element.addListener('click');
+
+    element.on('click', function(event) {
+      if (event.target.name === 'playButton') {
+        var inputText = this.getChildByName('nameField');
+
+        if (inputText.value !== '') {
+          this.removeListener('click');
+          this.setVisible(false);
+          text.setText('Welcome ' + inputText.value);
+          success();
+        }
+      }
+    });
+    const success = () => {
+      var welcomeMessage = this.add.text(100, 180, 'Welcome to 2427 Autochess');
+      const startButton = this.createStartButton();
+    };
   }
 }
