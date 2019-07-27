@@ -1,8 +1,11 @@
 import 'phaser';
+import DraftScene from '../draft-scene/draft-scene.class';
 
+var myScene;
 export default class LobbyScene extends Phaser.Scene {
   constructor() {
     super({ key: 'LobbyScene', active: true });
+    myScene = this;
   }
 
   create() {
@@ -35,11 +38,12 @@ export default class LobbyScene extends Phaser.Scene {
         backgroundColor: '#fff',
       });
     });
-    startButton.on('pointerdown', startGame);
+    startButton.on('pointerdown', this.startGame.bind(this));
     return startButton;
   }
-}
 
-function startGame() {
-  console.log('start');
+  startGame() {
+    this.game.scene.add('DraftScene', DraftScene);
+    this.game.scene.remove('LobbyScene');
+  }
 }

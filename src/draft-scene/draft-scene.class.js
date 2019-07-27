@@ -2,7 +2,7 @@ import 'phaser';
 
 export default class DraftScene extends Phaser.Scene {
   constructor() {
-    super({ key: 'DraftScene', active: false });
+    super({ key: 'DraftScene', active: true });
   }
 
   create() {
