@@ -12,6 +12,10 @@
   "dependencies": {
     "phaser": "^3.18.1"
   },
+  "resolutions": {
+    "mem": "^4.0.0",
+    "webpack-dev-server": "^3.1.11"
+  },
   "deprecated": false,
   "description": "A Phaser 3 Project Template",
   "devDependencies": {
